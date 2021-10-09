@@ -53,8 +53,7 @@ class WPPluginMaker
                 $newFileContent = $this->replaceContent($pluginName, $fileContent, $author);
 
                 if($fileNameWithExtension === 'wp-plugin-skeleton.php'){
-                    $newFileContent = preg_replace('%Version:\s+([0-9.]+[0-9.]+[0-9])%i', 'Version:           '.$version, $newFileContent);
-                    $newFileContent = preg_replace("%define\( 'MY_NEW_PLUGIN_VERSION',\s'([0-9.]+[0-9.]+[0-9])' \)%i", sprintf("define( 'MY_NEW_PLUGIN_VERSION', '%s' )", $version), $newFileContent);
+                    $newFileContent = preg_replace("%[0-9.]+[0-9.]+[0-9]%i", $version, $newFileContent);
                 }
 
                 $newFileNameWithExtension = str_replace('wp-plugin-skeleton', $pluginSlug, $fileNameWithExtension);
