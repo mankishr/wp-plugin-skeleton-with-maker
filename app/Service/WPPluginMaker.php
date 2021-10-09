@@ -72,7 +72,7 @@ class WPPluginMaker
      */
     private function replaceContent(string $pluginName, string $fileContent, string $author): string
     {
-        $fileContent = str_replace( 'Anka Bajurin Stiskalov <anka@q.agency>', $author, $fileContent);
+        $fileContent = str_replace( 'Anka Bajurin Stiskalov', $author, $fileContent);
         $fileContent = str_replace( 'Wp Plugin Skeleton', $pluginName, $fileContent);
         $fileContent = str_replace( 'Wp_Plugin_Skeleton', $this->slugify($pluginName, '_', 'ucwords'), $fileContent);
         $fileContent = str_replace( 'wp_plugin_skeleton', $this->slugify($pluginName, '_'), $fileContent);
