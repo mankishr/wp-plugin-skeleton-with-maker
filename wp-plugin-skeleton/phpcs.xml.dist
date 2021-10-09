@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Theme Coding Standards">
+	<config name="minimum_supported_wp_version" value="7.3" />
+
+	<rule ref="WordPress-VIP-Go">
+		<severity>5</severity>
+	</rule>
+  	<rule ref="WordPress-VIP-Go">
+		<!-- DB queries, mainly direct querying, slow queries : NOTE loads of no noncing -->
+		<!-- DB<exclude name="WordPressVIPMinimum.Files.IncludingFile.UsingVariable"/> -->
+		<exclude name="WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents"/>
+		<exclude name="WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get"/>
+		<exclude name="WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout"/>
+		<exclude name="WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout"/>
+           <!-- php/class-offerfeedservice.php:329 -->
+
+	</rule>
+	<!-- Check all PHP files in directory tree by default. -->
+	<arg name="extensions" value="php"/>
+	<file>.</file>
+
+	<!-- Show sniff codes in all reports -->
+	<arg value="sp"/>
+	<arg name="colors"/>
+
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/acf-json/*</exclude-pattern>
+</ruleset>

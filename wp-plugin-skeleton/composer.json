@@ -1,0 +1,27 @@
+{
+	"name": "mankishr/wp_plugin_skeleton",
+	"license": "MIT",
+	"description": "Wordpress plugin skeleton with plugin maker for CLI",
+	"type": "wordpress-plugin",
+	"support": {
+		"issues": "https://www.linkedin.com/in/anka-bajurin-stiskalov-18383524/"
+	},
+	"require": {
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+		"automattic/vipwpcs": "^2.2",
+		"wp-coding-standards/wpcs": "^2.3",
+		"phpcompatibility/phpcompatibility-wp": "*",
+		"sirbrillig/phpcs-variable-analysis": "^2.8.3"
+	},
+	"scripts": {
+		"php:compatibility": "composer install && vendor/bin/phpcs -p -s --runtime-set testVersion '7.2-' --standard=PHPCompatibilityWP --ignore=docker,tools,tests,node_modules,vendor --extensions=php",
+		"php:lint": "composer install && vendor/bin/phpcs -p -s",
+		"php:autofix": "composer install && vendor/bin/phpcbf",
+		"php:lint:errors": "composer install && vendor/bin/phpcs -p -s --runtime-set ignore_warnings_on_exit 1"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	}
+}
