@@ -1,4 +1,11 @@
 {
+    "name": "mankishr/wp-plugin-skeleton-with-maker",
+    "description": "WordPress plugin skeleton + command-line command for plugin maker",
+    "type": "project",
+    "support": {
+        "issues": "https://www.linkedin.com/in/anka-bajurin-stiskalov-18383524/"
+    },
+    "license": "MIT",
     "require": {
         "symfony/console": "^5.3",
         "symfony/finder": "^5.3",
