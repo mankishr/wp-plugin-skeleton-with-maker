@@ -9,6 +9,8 @@
 
 namespace Wp_Plugin_Skeleton\Infrastructure;
 
+use Wp_Plugin_Skeleton\Admin\Wp_Plugin_Skeleton_Admin_Menu_Page;
+use Wp_Plugin_Skeleton\Admin\Settings\Wp_Plugin_Skeleton_Settings_Service;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Activator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Deactivator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_I18n;
@@ -60,6 +62,16 @@ final class Wp_Plugin_Skeleton_Service_Container
      * @var Wp_Plugin_Skeleton_Deactivator
      */
     private $wp_plugin_skeleton_deactivator;
+
+    /**
+     * @var Wp_Plugin_Skeleton_Settings_Service
+     */
+    private $wp_plugin_skeleton_settings_service;
+
+    /**
+     * @var Wp_Plugin_Skeleton_Admin_Menu_Page
+     */
+    private $wp_plugin_skeleton_admin_menu_page;
 
     protected function __construct()
     {
@@ -155,5 +167,35 @@ final class Wp_Plugin_Skeleton_Service_Container
             $this->wp_plugin_skeleton_deactivator = new Wp_Plugin_Skeleton_Deactivator();
         }
         return $this->wp_plugin_skeleton_deactivator;
+    }
+
+    /**
+     * Creates and returns new Wp_Plugin_Skeleton_Settings_Service object.
+     *
+     * @return Wp_Plugin_Skeleton_Settings_Service
+     *
+     * @since    2.0.0
+     */
+    public function wp_plugin_skeleton_settings_service(): Wp_Plugin_Skeleton_Settings_Service
+    {
+        if (null === $this->wp_plugin_skeleton_settings_service) {
+            $this->wp_plugin_skeleton_settings_service = new Wp_Plugin_Skeleton_Settings_Service();
+        }
+        return $this->wp_plugin_skeleton_settings_service;
+    }
+
+    /**
+     * Creates and returns new Wp_Plugin_Skeleton_Admin_Menu_Page object.
+     *
+     * @return Wp_Plugin_Skeleton_Admin_Menu_Page
+     *
+     * @since    2.0.0
+     */
+    public function wp_plugin_skeleton_admin_menu_page(): Wp_Plugin_Skeleton_Admin_Menu_Page
+    {
+        if (null === $this->wp_plugin_skeleton_admin_menu_page) {
+            $this->wp_plugin_skeleton_admin_menu_page = new Wp_Plugin_Skeleton_Admin_Menu_Page($this->wp_plugin_skeleton_settings_service());
+        }
+        return $this->wp_plugin_skeleton_admin_menu_page;
     }
 }

@@ -12,6 +12,7 @@
 
 namespace Wp_Plugin_Skeleton\Includes;
 
+use Wp_Plugin_Skeleton\Admin\Wp_Plugin_Skeleton_Admin_Menu_Page;
 use Wp_Plugin_Skeleton\Infrastructure\Wp_Plugin_Skeleton_Service_Container;
 
 /**
@@ -60,6 +61,11 @@ class Wp_Plugin_Skeleton_Service
     private $wp_plugin_skeleton_i18n;
 
     /**
+     * @var Wp_Plugin_Skeleton_Admin_Menu_Page
+     */
+    private  $admin_menu_page;
+
+    /**
      * Define the core functionality of the plugin.
      *
      * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -72,11 +78,8 @@ class Wp_Plugin_Skeleton_Service
      */
     public function __construct( Wp_Plugin_Skeleton_Loader $loader )
     {
-        if (\defined('WP_PLUGIN_SKELETON_VERSION')) {
-            $this->version = WP_PLUGIN_SKELETON_VERSION;
-        } else {
-            $this->version = '1.0.0';
-        }
+        $this->version = WP_PLUGIN_SKELETON_VERSION;
+
         $this->wp_plugin_skeleton = 'wp-plugin-skeleton';
 
         $this->loader = $loader;
@@ -92,6 +95,7 @@ class Wp_Plugin_Skeleton_Service
     {
         $this->update_version();
         $this->set_locale();
+        $this->define_admin_hooks();
     }
 
 
@@ -152,6 +156,7 @@ class Wp_Plugin_Skeleton_Service
 
     private function load_other_dependencies()
     {
+        $this->admin_menu_page = Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_admin_menu_page();
         $this->wp_plugin_skeleton_i18n = Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_i18n();
     }
 
@@ -166,6 +171,12 @@ class Wp_Plugin_Skeleton_Service
      */
     private function set_locale(): void {
         $this->loader->add_action( 'plugins_loaded', $this->wp_plugin_skeleton_i18n, 'load_plugin_textdomain' );
+    }
+
+    private function define_admin_hooks(): void
+    {
+        $this->loader->add_action('admin_menu', $this->admin_menu_page, 'add_menu_page');
+        $this->loader->add_action('admin_menu', $this->admin_menu_page, 'settings_page_fields');
     }
 
 }
