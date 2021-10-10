@@ -7,6 +7,7 @@
 		"issues": "https://www.linkedin.com/in/anka-bajurin-stiskalov-18383524/"
 	},
 	"require": {
+		"symfony/options-resolver": "^5.3"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
