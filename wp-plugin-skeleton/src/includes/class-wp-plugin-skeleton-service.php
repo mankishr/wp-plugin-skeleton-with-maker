@@ -107,6 +107,15 @@ class Wp_Plugin_Skeleton_Service
      */
     private function update_version(): void
     {
+        $current_version = get_option( WP_PLUGIN_SKELETON_VERSION_KEY ) ?? '0.0.0';
+
+        /*
+         * Custom db table is introduced in version 3.0.0.
+         * @todo Change the version if it is different in your plugin. Anyway remove todo notice.
+         */
+        if(version_compare($current_version, '3.0.0', '<')){
+            $this->install_custom_db_table();
+        }
         update_option(WP_PLUGIN_SKELETON_VERSION_KEY, $this->version);
     }
 
@@ -177,6 +186,11 @@ class Wp_Plugin_Skeleton_Service
     {
         $this->loader->add_action('admin_menu', $this->admin_menu_page, 'add_menu_page');
         $this->loader->add_action('admin_menu', $this->admin_menu_page, 'settings_page_fields');
+    }
+
+    private function install_custom_db_table()
+    {
+        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_custom_table_repository()->setup_table();
     }
 
 }
