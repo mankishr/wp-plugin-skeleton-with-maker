@@ -9,6 +9,8 @@
 
 namespace Wp_Plugin_Skeleton\Includes;
 
+use Wp_Plugin_Skeleton\Infrastructure\Wp_Plugin_Skeleton_Service_Container;
+
 /**
  * Fired during plugin deactivation.
  *
@@ -31,5 +33,7 @@ class Wp_Plugin_Skeleton_Deactivator
      */
     public static function deactivate(): void
     {
+        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_custom_table_repository()->drop_table();
+        delete_option( WP_PLUGIN_SKELETON_VERSION_KEY );
     }
 }

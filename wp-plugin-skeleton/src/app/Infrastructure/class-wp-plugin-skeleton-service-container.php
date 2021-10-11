@@ -16,6 +16,7 @@ use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Deactivator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_I18n;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Loader;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Service;
+use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Custom_Table_Repository_Table;
 
 /**
  * Initialise all needed services.
@@ -34,7 +35,7 @@ final class Wp_Plugin_Skeleton_Service_Container
     /**
      * Instance of the Wp_Plugin_Skeleton_Service_Container class.
      *
-     * @var  Wp_Plugin_Skeleton_Service_Container
+     * @var  Wp_Plugin_Skeleton_Service_Container|null
      */
     protected static $instance;
 
@@ -72,6 +73,11 @@ final class Wp_Plugin_Skeleton_Service_Container
      * @var Wp_Plugin_Skeleton_Admin_Menu_Page
      */
     private $wp_plugin_skeleton_admin_menu_page;
+
+    /**
+     * @var Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+     */
+    private $wp_plugin_skeleton_custom_table_repository;
 
     protected function __construct()
     {
@@ -197,5 +203,21 @@ final class Wp_Plugin_Skeleton_Service_Container
             $this->wp_plugin_skeleton_admin_menu_page = new Wp_Plugin_Skeleton_Admin_Menu_Page($this->wp_plugin_skeleton_settings_service());
         }
         return $this->wp_plugin_skeleton_admin_menu_page;
+    }
+
+    /**
+     * Creates and returns new Wp_Plugin_Skeleton_Custom_Table_Repository object.
+     *
+     * @return Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+     *
+     * @since    3.0.0
+     */
+    public function wp_plugin_skeleton_custom_table_repository(): Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+    {
+        if (null === $this->wp_plugin_skeleton_custom_table_repository) {
+            global $wpdb;
+            $this->wp_plugin_skeleton_custom_table_repository = new Wp_Plugin_Skeleton_Custom_Table_Repository_Table($wpdb, 'custom_table');
+        }
+        return $this->wp_plugin_skeleton_custom_table_repository;
     }
 }
