@@ -6,4 +6,4 @@ Create new plugin from wp-plugin-skeleton folder and files in the root of the pr
 * v1.0.0 boilerplate 
 * v2.0.0 options page 
 * v3.0.0 custom database table 
-* v4.0.0 entity/model validation 
+* v4.0.0 mapping entity to database table and validation
