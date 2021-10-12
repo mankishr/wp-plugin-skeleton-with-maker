@@ -35,8 +35,8 @@ class Wp_Plugin_Skeleton_Activator
     public static function activate(): void
     {
         // Remove tables just in case plugin is not deactivated properly.
-        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_custom_table_repository()->drop_table();
+        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_game_score_repository()->drop_table();
 
-        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_custom_table_repository()->setup_table();
+        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_game_score_repository()->setup_table();
     }
 }

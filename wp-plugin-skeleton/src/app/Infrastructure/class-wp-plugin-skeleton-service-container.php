@@ -16,7 +16,7 @@ use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Deactivator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_I18n;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Loader;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Service;
-use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Custom_Table_Repository_Table;
+use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository_Table;
 
 /**
  * Initialise all needed services.
@@ -75,9 +75,9 @@ final class Wp_Plugin_Skeleton_Service_Container
     private $wp_plugin_skeleton_admin_menu_page;
 
     /**
-     * @var Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+     * @var Wp_Plugin_Skeleton_Game_Score_Repository_Table
      */
-    private $wp_plugin_skeleton_custom_table_repository;
+    private $wp_plugin_skeleton_game_score_repository;
 
     protected function __construct()
     {
@@ -208,16 +208,16 @@ final class Wp_Plugin_Skeleton_Service_Container
     /**
      * Creates and returns new Wp_Plugin_Skeleton_Custom_Table_Repository object.
      *
-     * @return Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+     * @return Wp_Plugin_Skeleton_Game_Score_Repository_Table
      *
      * @since    3.0.0
      */
-    public function wp_plugin_skeleton_custom_table_repository(): Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+    public function wp_plugin_skeleton_game_score_repository(): Wp_Plugin_Skeleton_Game_Score_Repository_Table
     {
-        if (null === $this->wp_plugin_skeleton_custom_table_repository) {
+        if (null === $this->wp_plugin_skeleton_game_score_repository) {
             global $wpdb;
-            $this->wp_plugin_skeleton_custom_table_repository = new Wp_Plugin_Skeleton_Custom_Table_Repository_Table($wpdb, 'custom_table');
+            $this->wp_plugin_skeleton_game_score_repository = new Wp_Plugin_Skeleton_Game_Score_Repository_Table($wpdb, 'game_score');
         }
-        return $this->wp_plugin_skeleton_custom_table_repository;
+        return $this->wp_plugin_skeleton_game_score_repository;
     }
 }

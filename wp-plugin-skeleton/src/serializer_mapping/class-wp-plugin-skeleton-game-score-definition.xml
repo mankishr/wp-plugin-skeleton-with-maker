@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<serializer xmlns="http://symfony.com/schema/dic/serializer-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/serializer-mapping
+        https://symfony.com/schema/dic/serializer-mapping/serializer-mapping-1.0.xsd"
+>
+    <class name="Wp_Plugin_Skeleton\Entity\Wp_Plugin_Skeleton_Game_Score">
+
+        <attribute name="id">
+            <group>all</group>
+        </attribute>
+
+        <attribute name="uuid">
+            <group>all</group>
+            <group>public</group>
+        </attribute>
+
+        <attribute name="game_name">
+            <group>all</group>
+            <group>for_update</group>
+        </attribute>
+
+        <attribute name="score">
+            <group>all</group>
+        </attribute>
+
+        <attribute name="created_at">
+            <group>all</group>
+        </attribute>
+    </class>
+</serializer>
