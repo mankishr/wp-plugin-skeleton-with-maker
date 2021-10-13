@@ -9,6 +9,9 @@
 
 namespace Wp_Plugin_Skeleton\Infrastructure;
 
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\RecursiveValidator;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Wp_Plugin_Skeleton\Admin\Wp_Plugin_Skeleton_Admin_Menu_Page;
 use Wp_Plugin_Skeleton\Admin\Settings\Wp_Plugin_Skeleton_Settings_Service;
 use Wp_Plugin_Skeleton\Factory\Wp_Plugin_Skeleton_Game_Score_Factory;
@@ -84,6 +87,11 @@ final class Wp_Plugin_Skeleton_Service_Container
      * @var Wp_Plugin_Skeleton_Game_Score_Factory
      */
     private $wp_plugin_skeleton_game_score_factory;
+
+    /**
+     * @var ValidatorInterface|RecursiveValidator
+     */
+    private $wp_plugin_skeleton_validator;
 
     protected function __construct()
     {
@@ -240,5 +248,21 @@ final class Wp_Plugin_Skeleton_Service_Container
             $this->wp_plugin_skeleton_game_score_factory = new Wp_Plugin_Skeleton_Game_Score_Factory();
         }
         return $this->wp_plugin_skeleton_game_score_factory;
+    }
+
+    /**
+     * Creates and returns new ValidatorInterface object.
+     *
+     * @return ValidatorInterface
+     *
+     * @since    1.0.2
+     */
+    public function wp_plugin_skeleton_validator(): ValidatorInterface {
+        if ( null === $this->wp_plugin_skeleton_validator ) {
+            $this->wp_plugin_skeleton_validator = Validation::createValidatorBuilder()
+                ->addMethodMapping('loadValidatorMetadata')
+                ->getValidator();
+        }
+        return $this->wp_plugin_skeleton_validator;
     }
 }
