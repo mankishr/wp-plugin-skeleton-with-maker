@@ -11,21 +11,24 @@ class Wp_Plugin_Skeleton_Game_Score_Factory implements Wp_Plugin_Skeleton_Entity
 {
     use Wp_Plugin_Skeleton_Survey_Serializer;
 
+
     /**
-     * Crete new Wp_Plugin_Skeleton_Game_Score instance.
+     * Crete new entity.
      *
-     * @param array $data
-     * @return Wp_Plugin_Skeleton_Game_Score
+     * @param array $data - normalized entity
+     * @return array|object
      * @throws ExceptionInterface
+     * @throws \Exception
      */
-    public function create( array $data ): Wp_Plugin_Skeleton_Game_Score
+    public function create( array $data ): object|array
     {
+        $data['created_at'] = isset($data['created_at']) ? new \DateTime($data['created_at']) : new \DateTime('now');
+
         return $this->entity_serializer('game-score')->denormalize(
             $data,
             Wp_Plugin_Skeleton_Game_Score::class,
             null,
             ['groups' => ['all']]
         );
-
     }
 }
