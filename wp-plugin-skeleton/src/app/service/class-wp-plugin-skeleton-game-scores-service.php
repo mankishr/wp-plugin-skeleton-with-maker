@@ -74,6 +74,15 @@ class Wp_Plugin_Skeleton_Game_Scores_Service
                 $results_data_for_import = $this->entity_serializer('game-score')->normalize($game_score, null, ['groups' => 'all']);
                 $this->scores_table_repository->insert($results_data_for_import);
             }
+            // @todo uncomment else when you decide what to do in case of an error
+            //else{
+                /*
+                 * Uses a __toString method on the $errors variable which is a
+                 * ConstraintViolationList object. This gives us a nice string
+                 * for debugging.
+                 */
+             //   error_log((string)$errors);
+            //}
         }
     }
 }
