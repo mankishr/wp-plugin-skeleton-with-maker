@@ -13,7 +13,9 @@
 namespace Wp_Plugin_Skeleton\Includes;
 
 use Wp_Plugin_Skeleton\Admin\Wp_Plugin_Skeleton_Admin_Menu_Page;
+use Wp_Plugin_Skeleton\Command\Wp_Plugin_Skeleton_Import_Scores_Command;
 use Wp_Plugin_Skeleton\Infrastructure\Wp_Plugin_Skeleton_Service_Container;
+use Wp_Plugin_Skeleton\Service\Wp_Plugin_Skeleton_Cron_Service;
 
 /**
  * The core plugin class.
@@ -66,6 +68,11 @@ class Wp_Plugin_Skeleton_Service
     private  $admin_menu_page;
 
     /**
+     * @var Wp_Plugin_Skeleton_Cron_Service
+     */
+    private $cron_service;
+
+    /**
      * Define the core functionality of the plugin.
      *
      * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -96,8 +103,8 @@ class Wp_Plugin_Skeleton_Service
         $this->update_version();
         $this->set_locale();
         $this->define_admin_hooks();
+        $this->define_cron_hooks();
     }
-
 
     /**
      * Updates version in database
@@ -108,13 +115,11 @@ class Wp_Plugin_Skeleton_Service
     private function update_version(): void
     {
         $current_version = get_option( WP_PLUGIN_SKELETON_VERSION_KEY ) ?? '0.0.0';
-
-        /*
-         * Custom db table is introduced in version 3.0.0.
-         * @todo Change the version if it is different in your plugin. Anyway remove todo notice.
-         */
         if(version_compare($current_version, '3.0.0', '<')){
             $this->install_custom_db_table();
+        }
+        if( Wp_Plugin_Skeleton_Cron_Service::WP_PLUGIN_SKELETON_MIGRATE_CRON === true && version_compare($current_version, $this->version, '<') ){
+            $this->migrate_cron_jobs();
         }
         update_option(WP_PLUGIN_SKELETON_VERSION_KEY, $this->version);
     }
@@ -167,6 +172,7 @@ class Wp_Plugin_Skeleton_Service
     {
         $this->admin_menu_page = Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_admin_menu_page();
         $this->wp_plugin_skeleton_i18n = Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_i18n();
+        $this->cron_service = Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_cron_service();
     }
 
     /**
@@ -188,9 +194,28 @@ class Wp_Plugin_Skeleton_Service
         $this->loader->add_action('admin_menu', $this->admin_menu_page, 'settings_page_fields');
     }
 
-    private function install_custom_db_table()
+    private function install_custom_db_table(): void
     {
         Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_game_score_repository()->setup_table();
+    }
+
+    /**
+     * Migrate cron jobs, change time, order, schedule id and similar.
+     *
+     * @since    4.0.0
+     */
+    private function migrate_cron_jobs(): void
+    {
+        $this->cron_service->cron_deactivation();
+        $this->cron_service->cron_activation();
+    }
+
+    private function define_cron_hooks(): void
+    {
+        $this->loader->add_filter('cron_schedules', $this->cron_service, 'cron_schedules');
+        $this->loader->add_action('admin_init', $this->cron_service, 'cron_activation', 2);
+        $import_scores_command = new Wp_Plugin_Skeleton_Import_Scores_Command();
+        $this->loader->add_action(Wp_Plugin_Skeleton_Cron_Service::WP_PLUGIN_SKELETON_CRON_SCHEDULE_ID, $import_scores_command, 'execute', 2);
     }
 
 }

@@ -17,6 +17,8 @@ use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_I18n;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Loader;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Service;
 use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository_Table;
+use Wp_Plugin_Skeleton\Service\Wp_Plugin_Skeleton_Cron_Service;
+use Wp_Plugin_Skeleton\Service\Wp_Plugin_Skeleton_Game_Scores_Service;
 
 /**
  * Initialise all needed services.
@@ -78,6 +80,16 @@ final class Wp_Plugin_Skeleton_Service_Container
      * @var Wp_Plugin_Skeleton_Game_Score_Repository_Table
      */
     private $wp_plugin_skeleton_game_score_repository;
+
+    /**
+     * @var Wp_Plugin_Skeleton_Cron_Service
+     */
+    private $wp_plugin_skeleton_cron_service;
+
+    /**
+     * @var Wp_Plugin_Skeleton_Game_Scores_Service
+     */
+    private $wp_plugin_skeleton_scores_service;
 
     protected function __construct()
     {
@@ -219,5 +231,33 @@ final class Wp_Plugin_Skeleton_Service_Container
             $this->wp_plugin_skeleton_game_score_repository = new Wp_Plugin_Skeleton_Game_Score_Repository_Table($wpdb, 'game_score');
         }
         return $this->wp_plugin_skeleton_game_score_repository;
+    }
+
+    /**
+     * Creates and returns new Wp_Plugin_Skeleton_Cron_Service object.
+     *
+     * @return Wp_Plugin_Skeleton_Cron_Service
+     *
+     * @since    5.0.0
+     */
+    public function wp_plugin_skeleton_cron_service(): Wp_Plugin_Skeleton_Cron_Service
+    {
+        if (null === $this->wp_plugin_skeleton_cron_service) {
+            $this->wp_plugin_skeleton_cron_service = new Wp_Plugin_Skeleton_Cron_Service();
+        }
+        return $this->wp_plugin_skeleton_cron_service;
+    }
+
+    /**
+     * @return Wp_Plugin_Skeleton_Game_Scores_Service
+     *
+     * @since    5.0.0
+     */
+    public function wp_plugin_skeleton_scores_service(): Wp_Plugin_Skeleton_Game_Scores_Service
+    {
+        if (null === $this->wp_plugin_skeleton_scores_service) {
+            $this->wp_plugin_skeleton_scores_service = new Wp_Plugin_Skeleton_Game_Scores_Service($this->wp_plugin_skeleton_scores_table_repository());
+        }
+        return $this->wp_plugin_skeleton_scores_service;
     }
 }
