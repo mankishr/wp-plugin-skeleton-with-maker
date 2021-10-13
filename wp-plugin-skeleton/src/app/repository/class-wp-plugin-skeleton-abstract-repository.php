@@ -1,6 +1,6 @@
 <?php
 /**
- * The file that defines the Wp_Plugin_Skeleton_Database_Table class
+ * The file that defines the Wp_Plugin_Skeleton_Abstract_Repository class
  *
  * A class that handles saving and retrieving data from custom database table.
  *
@@ -12,7 +12,7 @@
 namespace Wp_Plugin_Skeleton\Repository;
 
 /**
- * Class Wp_Plugin_Skeleton_Database
+ * Class Wp_Plugin_Skeleton_Abstract_Repository
  *
  * A class that handles saving and retrieving data from database.
  *
