@@ -30,21 +30,20 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
      * @var string
      */
     protected $game_name;
-
     /*
      * @var int
      */
     protected $score;
 
     /**
-     * Datetime when it is created.
+     * Datetime converted to string.
      *
-     * @var string|null|\DateTime $created_at
+     * @var string $created_at
      */
     protected $created_at;
 
     /**
-     * Wp_Plugin_Skeleton_Game_Score constructor.
+     * Final_Plugin_Game_Score constructor.
      * @param int $score
      * @param string $game_name
      * @param int|null $id
@@ -59,16 +58,16 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
         $this->game_name = $game_name;
         $this->score = $score;
         $this->created_at = $created_at;
-        if( !$created_at ){
+        if (!$created_at) {
             $now = new \DateTime('now');
-            $this->set_created_at($now);
+            $this->setCreatedAt($now);
         }
     }
 
     /**
      * @return int|null
      */
-    public function get_id():? int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -76,7 +75,7 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     /**
      * @param int $id
      */
-    public function set_id(int $id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -84,7 +83,7 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     /**
      * @return string
      */
-    public function get_uuid(): string
+    public function getUuid(): string
     {
         return $this->uuid;
     }
@@ -92,32 +91,15 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     /**
      * @param string $uuid
      */
-    public function set_uuid(string $uuid): void
+    public function setUuid(string $uuid): void
     {
         $this->uuid = $uuid;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function get_score(): int
-    {
-        return $this->score;
-    }
-
-    /**
-     * @param int $score
-     */
-    public function set_score(int $score): void
-    {
-        $this->score = $score;
-    }
-
-
-    /**
-     * @return string|null
-     */
-    public function get_game_name():? string
+    public function getGameName(): string
     {
         return $this->game_name;
     }
@@ -125,17 +107,33 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     /**
      * @param string $game_name
      */
-    public function set_game_name(string $game_name): void
+    public function setGameName(string $game_name): void
     {
-        $this->game_name = stripslashes($game_name);
+        $this->game_name = $game_name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getScore(): int
+    {
+        return $this->score;
+    }
+
+    /**
+     * @param int $score
+     */
+    public function setScore(int $score): void
+    {
+        $this->score = $score;
     }
 
     /**
      * Getter for the created_at parameter.
      *
-     * @return \DateTime
+     * @return string
      */
-    public function get_created_at(): \DateTime
+    public function getCreatedAt(): string
     {
         return $this->created_at;
     }
@@ -143,11 +141,11 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     /**
      * Setter for the created_at parameter.
      *
-     * @param \DateTime $created_at Created at date.
-     * @throws \Exception
+     * @param \DateTime $created_at Created at datetime.
      */
-    public function set_created_at( \DateTime $created_at ): void {
-        $this->created_at = $created_at;
+    public function setCreatedAt(\DateTime $created_at): void
+    {
+        $this->created_at = $created_at->format('Y-m-d H:i:s');
     }
 
     /**
@@ -157,7 +155,22 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     {
         $metadata->addPropertyConstraint(
             'id',
+            new Assert\NotBlank(['allowNull' => true])
+        );
+
+        $metadata->addPropertyConstraint(
+            'id',
             new Assert\Positive()
+        );
+
+        $metadata->addPropertyConstraint(
+            'uuid',
+            new Assert\NotBlank()
+        );
+
+        $metadata->addPropertyConstraint(
+            'uuid',
+            new Assert\Uuid()
         );
 
         $metadata->addPropertyConstraint(
@@ -172,7 +185,7 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
 
         $metadata->addPropertyConstraint(
             'created_at',
-            new Assert\DateTime()
+            new Assert\Type("datetime")
         );
 
     }

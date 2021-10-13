@@ -17,10 +17,10 @@ interface Wp_Plugin_Skeleton_Entity
     /**
      * @return int|null
      */
-    public function get_id():? int;
+    public function getId():? int;
 
     /**
      * @param int $id
      */
-    public function set_id(int $id): void;
+    public function setId(int $id): void;
 }
