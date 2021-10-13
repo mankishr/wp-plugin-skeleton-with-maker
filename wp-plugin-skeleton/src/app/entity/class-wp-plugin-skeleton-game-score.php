@@ -185,7 +185,7 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
 
         $metadata->addPropertyConstraint(
             'created_at',
-            new Assert\Type("datetime")
+            new Assert\DateTime()
         );
 
     }

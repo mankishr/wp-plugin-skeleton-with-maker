@@ -12,12 +12,10 @@
 
         <attribute name="uuid">
             <group>all</group>
-            <group>public</group>
         </attribute>
 
         <attribute name="game_name">
             <group>all</group>
-            <group>for_update</group>
         </attribute>
 
         <attribute name="score">
