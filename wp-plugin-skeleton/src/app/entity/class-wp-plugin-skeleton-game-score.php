@@ -131,29 +131,23 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     }
 
     /**
-     * Getter for the q_updated_at parameter.
+     * Getter for the created_at parameter.
      *
-     * @return string|null
+     * @return \DateTime
      */
-    public function get_created_at(): string
+    public function get_created_at(): \DateTime
     {
         return $this->created_at;
     }
 
     /**
-     * Setter for the q_updated_at parameter.
+     * Setter for the created_at parameter.
      *
-     * @param mixed $created_at Created at date.
+     * @param \DateTime $created_at Created at date.
      * @throws \Exception
      */
-    public function set_created_at( mixed $created_at ): void {
-        if ( $created_at instanceof \DateTime ) {
-            $this->created_at = $created_at;
-        } elseif ( \is_string( $created_at ) ) {
-            $this->created_at = new \DateTime( $created_at );
-        } elseif ( \is_int( $created_at ) ) {
-            $this->created_at = new \DateTime( gmdate( DATE_ATOM, $created_at ) );
-        }
+    public function set_created_at( \DateTime $created_at ): void {
+        $this->created_at = $created_at;
     }
 
     /**

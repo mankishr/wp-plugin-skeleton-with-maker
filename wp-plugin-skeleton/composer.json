@@ -9,7 +9,9 @@
 	"require": {
 		"symfony/options-resolver": "^5.3",
 		"symfony/validator": "^5.3",
-		"symfony/serializer": "^5.3"
+		"symfony/serializer": "^5.3",
+		"symfony/property-access": "^5.3",
+		"symfony/config": "^5.3"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
