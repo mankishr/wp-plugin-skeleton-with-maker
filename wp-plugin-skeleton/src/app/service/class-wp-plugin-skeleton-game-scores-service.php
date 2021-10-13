@@ -11,9 +11,9 @@
 
 namespace Wp_Plugin_Skeleton\Service;
 
-use Wp_Plugin_Skeleton\Entity\Wp_Plugin_Skeleton_Game_Score;
-use Wp_Plugin_Skeleton\Infrastructure\Wp_Plugin_Skeleton_Service_Container;
-use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository_Table;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Wp_Plugin_Skeleton\Factory\Wp_Plugin_Skeleton_Game_Score_Factory;
+use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository;
 use Wp_Plugin_Skeleton\Traits\Wp_Plugin_Skeleton_Survey_Serializer;
 
 /**
@@ -30,59 +30,49 @@ class Wp_Plugin_Skeleton_Game_Scores_Service
     use Wp_Plugin_Skeleton_Survey_Serializer;
 
     /**
-     * @var Wp_Plugin_Skeleton_Game_Score_Repository_Table
-     *
-     * @since      5.0.0
+     * @var Wp_Plugin_Skeleton_Game_Score_Repository
      */
     private $scores_table_repository;
 
-    public function __construct( Wp_Plugin_Skeleton_Game_Score_Repository_Table $scores_table_repository )
+    /**
+     * @var Wp_Plugin_Skeleton_Game_Score_Factory 
+     */
+    private $game_score_factory;
+
+    /**
+     * @var ValidatorInterface 
+     */
+    private $validator;
+
+    /**
+     * @param Wp_Plugin_Skeleton_Game_Score_Repository $scores_table_repository
+     * @param Wp_Plugin_Skeleton_Game_Score_Factory $game_score_factory
+     * @param ValidatorInterface $validator
+     */
+    public function __construct(Wp_Plugin_Skeleton_Game_Score_Repository $scores_table_repository, Wp_Plugin_Skeleton_Game_Score_Factory $game_score_factory, ValidatorInterface $validator )
     {
         $this->scores_table_repository = $scores_table_repository;
+        $this->game_score_factory = $game_score_factory;
+        $this->validator = $validator;
     }
 
     /**
      * @throws \JsonException
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      *
      * @since      5.0.0
      */
-    public function import_scores_json_feed(): void
+    public function import_game_scores(): void
     {
         $json = file_get_contents(WP_PLUGIN_SKELETON_PATH.'src/public/game_scores_example.json');
         $scores = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         foreach ($scores as $score){
+            $game_score = $this->game_score_factory->create($score);
+            $errors = $this->validator->validate($game_score);
 
-            /** @var Wp_Plugin_Skeleton_Game_Score $game_score */
-            $game_score = Wp_Plugin_Skeleton_Service_Container::get_instance()->q_surveyjs_results_factory()->create_survey_results($score);
-
-            $errors = Wp_Plugin_Skeleton_Service_Container::get_instance()->q_surveyjs_validator()->validate($game_score);
-
-            if (count($errors) > 0) {
-                /*
-                 * Uses a __toString method on the $errors variable which is a
-                 * ConstraintViolationList object. This gives us a nice string
-                 * for debugging.
-                 */
-
-                wp_send_json(['status' => 'error', 'message' => (string)$errors]);
-                wp_die();
-            }
-
-            try{
-                $results_data_for_import = $this->entity_serializer('results')->normalize($survey_results, null, ['groups' => 'all']);
-                if ( $results_id = $this->scores_table_repository->insert($results_data_for_import)){
-                    $survey_results->setId($results_id);
-
-                }else{
-                    wp_send_json( array('status' => 'error','message' => 'Results are not saved to database. Error unknown. ' ) );
-                    wp_die();
-                }
-            }catch (\Exception $e) {
-                wp_send_json( array('status' => 'error','message' => $e->getMessage() ) );
-                wp_die();
-            } catch (ExceptionInterface $e) {
-                wp_send_json( array('status' => 'error','message' => $e->getMessage() ) );
-                wp_die();
+            if (count($errors) === 0) {
+                $results_data_for_import = $this->entity_serializer('game-score')->normalize($game_score, null, ['groups' => 'all']);
+                $this->scores_table_repository->insert($results_data_for_import);
             }
         }
     }

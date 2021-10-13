@@ -20,7 +20,7 @@ namespace Wp_Plugin_Skeleton\Repository;
  * @subpackage Wp_Plugin_Skeleton\Repository
  * @author     Anka Bajurin Stiskalov
  */
-class Wp_Plugin_Skeleton_Game_Score_Repository_Table extends Wp_Plugin_Skeleton_Abstract_Repository
+class Wp_Plugin_Skeleton_Game_Score_Repository extends Wp_Plugin_Skeleton_Abstract_Repository
 {
 
     /**

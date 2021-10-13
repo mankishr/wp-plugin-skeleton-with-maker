@@ -21,6 +21,6 @@ class Wp_Plugin_Skeleton_Import_Scores_Command implements Wp_Plugin_Skeleton_Com
      */
     public function execute(): void
     {
-        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_scores_service()->import_scores_json_feed();
+        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_scores_service()->import_game_scores();
     }
 }
