@@ -11,6 +11,7 @@ namespace Wp_Plugin_Skeleton\Infrastructure;
 
 use Wp_Plugin_Skeleton\Admin\Wp_Plugin_Skeleton_Admin_Menu_Page;
 use Wp_Plugin_Skeleton\Admin\Settings\Wp_Plugin_Skeleton_Settings_Service;
+use Wp_Plugin_Skeleton\Factory\Wp_Plugin_Skeleton_Game_Score_Factory;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Activator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Deactivator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_I18n;
@@ -80,6 +81,11 @@ final class Wp_Plugin_Skeleton_Service_Container
      * @var Wp_Plugin_Skeleton_Game_Score_Repository_Table
      */
     private $wp_plugin_skeleton_game_score_repository;
+
+    /**
+     * @var Wp_Plugin_Skeleton_Game_Score_Factory
+     */
+    private $wp_plugin_skeleton_game_score_factory;
 
     /**
      * @var Wp_Plugin_Skeleton_Cron_Service
@@ -231,6 +237,21 @@ final class Wp_Plugin_Skeleton_Service_Container
             $this->wp_plugin_skeleton_game_score_repository = new Wp_Plugin_Skeleton_Game_Score_Repository_Table($wpdb, 'game_score');
         }
         return $this->wp_plugin_skeleton_game_score_repository;
+    }
+
+    /**
+     * Creates and returns new Wp_Plugin_Skeleton_Game_Score_Factory object.
+     *
+     * @return Wp_Plugin_Skeleton_Game_Score_Factory
+     *
+     * @since    4.0.0
+     */
+    public function wp_plugin_skeleton_game_score_factory(): Wp_Plugin_Skeleton_Game_Score_Factory
+    {
+        if (null === $this->wp_plugin_skeleton_game_score_factory) {
+            $this->wp_plugin_skeleton_game_score_factory = new Wp_Plugin_Skeleton_Game_Score_Factory();
+        }
+        return $this->wp_plugin_skeleton_game_score_factory;
     }
 
     /**
