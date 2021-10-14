@@ -1,0 +1,38 @@
+[
+  {
+    "uuid": "7a970ed1-3b09-4b20-b2ab-b55febcfb583",
+    "score": 118,
+    "game_name": "Forti nights",
+    "created_at": "2015-07-14T03:37:52 -02:00"
+  },
+  {
+    "uuid": "99762005-2485-410e-8c0c-57fc7f9f784c",
+    "score": 162,
+    "game_name": "Slimer",
+    "created_at": "2019-12-14T05:30:01 -01:00"
+  },
+  {
+    "uuid": "ee9c7906-86a4-4f00-b099-d88d1a72ac72",
+    "score": 93,
+    "game_name": "Ants",
+    "created_at": "2015-05-10T08:33:05 -02:00"
+  },
+  {
+    "uuid": "6f1b55cd-81cc-4ca3-8898-7389f650e485",
+    "score": 37,
+    "game_name": "Crazy scientist",
+    "created_at": "2017-07-10T02:43:34 -02:00"
+  },
+  {
+    "uuid": "0dd2ae27-cc24-41aa-8e38-fe8e42629b7a",
+    "score": 242,
+    "game_name": "War and more",
+    "created_at": "2015-04-26T05:12:34 -02:00"
+  },
+  {
+    "uuid": "d4cf9504-9cbe-4116-9e07-3808b7702196",
+    "score": 186,
+    "game_name": "Subnautics",
+    "created_at": "2020-06-16T07:59:55 -02:00"
+  }
+]

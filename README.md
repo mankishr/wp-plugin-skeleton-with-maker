@@ -7,4 +7,4 @@ Create new plugin from wp-plugin-skeleton folder and files in the root of the pr
 * v2.0.0 options page 
 * v3.0.0 custom database table 
 * v4.0.0 mapping entity to database table and validation
- 
+* v5.0.0 cron job

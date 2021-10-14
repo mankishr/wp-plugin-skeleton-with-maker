@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * This is the Wp_Plugin_Skeleton_Game_Score_Factory class.
+ *
+ * Factory Wp_Plugin_Skeleton_Game_Score_Factory creates Wp_Plugin_Skeleton_Game_Score entity.
+ *
+ * @since      4.0.0
+ * @package    Wp_Plugin_Skeleton
+ * @subpackage Wp_Plugin_Skeleton\Factory
+ */
 
 namespace Wp_Plugin_Skeleton\Factory;
 
@@ -11,13 +19,15 @@ class Wp_Plugin_Skeleton_Game_Score_Factory implements Wp_Plugin_Skeleton_Entity
 {
     use Wp_Plugin_Skeleton_Entity_Serializer;
 
-    /** Crete new entity
+    /**
+     * Crete new entity
+     *
      * @param array $data - normalized entity
      * @return array|object
      * @throws ExceptionInterface
      */
-    public function create( array $data ) {
-
+    public function create( array $data ): object|array
+    {
         $data['created_at'] = isset($data['created_at']) ? new \DateTime($data['created_at']) : new \DateTime('now');
 
         return $this->entity_serializer('game-score')->denormalize(
