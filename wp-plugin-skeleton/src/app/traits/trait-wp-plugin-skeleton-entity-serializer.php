@@ -14,10 +14,10 @@ use Symfony\Component\Serializer\Serializer;
  * @subpackage Wp_Plugin_Skeleton/Traits
  * @author     Anka Bajurin Stiskalov
  */
-trait Wp_Plugin_Skeleton_Survey_Serializer
+trait Wp_Plugin_Skeleton_Entity_Serializer
 {
     public function entity_serializer(string $class_alias): Serializer{
-        $classMetadataFactory = new ClassMetadataFactory(new XmlFileLoader(WP_PLUGIN_SKELETON_PATH.'src/app/serializer_mapping/class-q-surveyjs-'.$class_alias.'-definition.xml'));
+        $classMetadataFactory = new ClassMetadataFactory(new XmlFileLoader(WP_PLUGIN_SKELETON_PATH.'src/app/serializer_mapping/class-wp-plugin-skeleton-'.$class_alias.'-definition.xml'));
         $normalizer = new ObjectNormalizer($classMetadataFactory);
         return new Serializer([$normalizer]);
     }

@@ -20,7 +20,7 @@ use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Deactivator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_I18n;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Loader;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Service;
-use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository_Table;
+use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository;
 
 /**
  * Initialise all needed services.
@@ -79,7 +79,7 @@ final class Wp_Plugin_Skeleton_Service_Container
     private $wp_plugin_skeleton_admin_menu_page;
 
     /**
-     * @var Wp_Plugin_Skeleton_Game_Score_Repository_Table
+     * @var Wp_Plugin_Skeleton_Game_Score_Repository
      */
     private $wp_plugin_skeleton_game_score_repository;
 
@@ -222,15 +222,15 @@ final class Wp_Plugin_Skeleton_Service_Container
     /**
      * Creates and returns new Wp_Plugin_Skeleton_Custom_Table_Repository object.
      *
-     * @return Wp_Plugin_Skeleton_Game_Score_Repository_Table
+     * @return Wp_Plugin_Skeleton_Game_Score_Repository
      *
      * @since    3.0.0
      */
-    public function wp_plugin_skeleton_game_score_repository(): Wp_Plugin_Skeleton_Game_Score_Repository_Table
+    public function wp_plugin_skeleton_game_score_repository(): Wp_Plugin_Skeleton_Game_Score_Repository
     {
         if (null === $this->wp_plugin_skeleton_game_score_repository) {
             global $wpdb;
-            $this->wp_plugin_skeleton_game_score_repository = new Wp_Plugin_Skeleton_Game_Score_Repository_Table($wpdb, 'game_score');
+            $this->wp_plugin_skeleton_game_score_repository = new Wp_Plugin_Skeleton_Game_Score_Repository($wpdb, 'game_score');
         }
         return $this->wp_plugin_skeleton_game_score_repository;
     }
