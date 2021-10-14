@@ -9,14 +9,18 @@
 
 namespace Wp_Plugin_Skeleton\Infrastructure;
 
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\RecursiveValidator;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Wp_Plugin_Skeleton\Admin\Wp_Plugin_Skeleton_Admin_Menu_Page;
 use Wp_Plugin_Skeleton\Admin\Settings\Wp_Plugin_Skeleton_Settings_Service;
+use Wp_Plugin_Skeleton\Factory\Wp_Plugin_Skeleton_Game_Score_Factory;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Activator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Deactivator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_I18n;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Loader;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Service;
-use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Custom_Table_Repository_Table;
+use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository_Table;
 
 /**
  * Initialise all needed services.
@@ -75,9 +79,19 @@ final class Wp_Plugin_Skeleton_Service_Container
     private $wp_plugin_skeleton_admin_menu_page;
 
     /**
-     * @var Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+     * @var Wp_Plugin_Skeleton_Game_Score_Repository_Table
      */
-    private $wp_plugin_skeleton_custom_table_repository;
+    private $wp_plugin_skeleton_game_score_repository;
+
+    /**
+     * @var Wp_Plugin_Skeleton_Game_Score_Factory
+     */
+    private $wp_plugin_skeleton_game_score_factory;
+
+    /**
+     * @var ValidatorInterface|RecursiveValidator
+     */
+    private $wp_plugin_skeleton_validator;
 
     protected function __construct()
     {
@@ -208,16 +222,47 @@ final class Wp_Plugin_Skeleton_Service_Container
     /**
      * Creates and returns new Wp_Plugin_Skeleton_Custom_Table_Repository object.
      *
-     * @return Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+     * @return Wp_Plugin_Skeleton_Game_Score_Repository_Table
      *
      * @since    3.0.0
      */
-    public function wp_plugin_skeleton_custom_table_repository(): Wp_Plugin_Skeleton_Custom_Table_Repository_Table
+    public function wp_plugin_skeleton_game_score_repository(): Wp_Plugin_Skeleton_Game_Score_Repository_Table
     {
-        if (null === $this->wp_plugin_skeleton_custom_table_repository) {
+        if (null === $this->wp_plugin_skeleton_game_score_repository) {
             global $wpdb;
-            $this->wp_plugin_skeleton_custom_table_repository = new Wp_Plugin_Skeleton_Custom_Table_Repository_Table($wpdb, 'custom_table');
+            $this->wp_plugin_skeleton_game_score_repository = new Wp_Plugin_Skeleton_Game_Score_Repository_Table($wpdb, 'game_score');
         }
-        return $this->wp_plugin_skeleton_custom_table_repository;
+        return $this->wp_plugin_skeleton_game_score_repository;
+    }
+
+    /**
+     * Creates and returns new Wp_Plugin_Skeleton_Game_Score_Factory object.
+     *
+     * @return Wp_Plugin_Skeleton_Game_Score_Factory
+     *
+     * @since    4.0.0
+     */
+    public function wp_plugin_skeleton_game_score_factory(): Wp_Plugin_Skeleton_Game_Score_Factory
+    {
+        if (null === $this->wp_plugin_skeleton_game_score_factory) {
+            $this->wp_plugin_skeleton_game_score_factory = new Wp_Plugin_Skeleton_Game_Score_Factory();
+        }
+        return $this->wp_plugin_skeleton_game_score_factory;
+    }
+
+    /**
+     * Creates and returns new ValidatorInterface object.
+     *
+     * @return ValidatorInterface
+     *
+     * @since    1.0.2
+     */
+    public function wp_plugin_skeleton_validator(): ValidatorInterface {
+        if ( null === $this->wp_plugin_skeleton_validator ) {
+            $this->wp_plugin_skeleton_validator = Validation::createValidatorBuilder()
+                ->addMethodMapping('loadValidatorMetadata')
+                ->getValidator();
+        }
+        return $this->wp_plugin_skeleton_validator;
     }
 }
