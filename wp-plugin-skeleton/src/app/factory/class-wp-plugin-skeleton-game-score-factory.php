@@ -26,7 +26,7 @@ class Wp_Plugin_Skeleton_Game_Score_Factory implements Wp_Plugin_Skeleton_Entity
      * @return array|object
      * @throws ExceptionInterface
      */
-    public function create( array $data ): object|array
+    public function create( array $data )
     {
         $data['created_at'] = isset($data['created_at']) ? new \DateTime($data['created_at']) : new \DateTime('now');
 
