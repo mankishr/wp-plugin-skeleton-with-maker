@@ -14,7 +14,7 @@ namespace Wp_Plugin_Skeleton\Service;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Wp_Plugin_Skeleton\Factory\Wp_Plugin_Skeleton_Game_Score_Factory;
 use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository;
-use Wp_Plugin_Skeleton\Traits\Wp_Plugin_Skeleton_Survey_Serializer;
+use Wp_Plugin_Skeleton\Traits\Wp_Plugin_Skeleton_Entity_Serializer;
 
 /**
  * Class Wp_Plugin_Skeleton_Cron_Service
@@ -27,7 +27,7 @@ use Wp_Plugin_Skeleton\Traits\Wp_Plugin_Skeleton_Survey_Serializer;
  */
 class Wp_Plugin_Skeleton_Game_Scores_Service
 {
-    use Wp_Plugin_Skeleton_Survey_Serializer;
+    use Wp_Plugin_Skeleton_Entity_Serializer;
 
     /**
      * @var Wp_Plugin_Skeleton_Game_Score_Repository
