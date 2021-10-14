@@ -12,20 +12,19 @@
 namespace Wp_Plugin_Skeleton\Factory;
 
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Wp_Plugin_Skeleton\Traits\Wp_Plugin_Skeleton_Survey_Serializer;
+use Wp_Plugin_Skeleton\Traits\Wp_Plugin_Skeleton_Entity_Serializer;
 use Wp_Plugin_Skeleton\Entity\Wp_Plugin_Skeleton_Game_Score;
 
 class Wp_Plugin_Skeleton_Game_Score_Factory implements Wp_Plugin_Skeleton_Entity_Factory_Interface
 {
-    use Wp_Plugin_Skeleton_Survey_Serializer;
+    use Wp_Plugin_Skeleton_Entity_Serializer;
 
     /**
-     * Crete new entity.
+     * Crete new entity
      *
      * @param array $data - normalized entity
      * @return array|object
      * @throws ExceptionInterface
-     * @throws \Exception
      */
     public function create( array $data ): object|array
     {
