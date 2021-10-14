@@ -190,7 +190,7 @@ class Wp_Plugin_Skeleton_Service
 
     private function install_custom_db_table()
     {
-        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_custom_table_repository()->setup_table();
+        Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_game_score_repository()->setup_table();
     }
 
 }
