@@ -24,6 +24,7 @@ use Wp_Plugin_Skeleton\Repository\Wp_Plugin_Skeleton_Game_Score_Repository;
 use Wp_Plugin_Skeleton\Service\Wp_Plugin_Skeleton_Cron_Service;
 use Wp_Plugin_Skeleton\Service\Wp_Plugin_Skeleton_Game_Scores_Service;
 
+
 /**
  * Initialise all needed services.
  *

@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * This is the Wp_Plugin_Skeleton_Game_Score_Factory class.
+ *
+ * Factory Wp_Plugin_Skeleton_Game_Score_Factory creates Wp_Plugin_Skeleton_Game_Score entity.
+ *
+ * @since      4.0.0
+ * @package    Wp_Plugin_Skeleton
+ * @subpackage Wp_Plugin_Skeleton\Factory
+ */
 
 namespace Wp_Plugin_Skeleton\Factory;
 
@@ -10,7 +18,6 @@ use Wp_Plugin_Skeleton\Entity\Wp_Plugin_Skeleton_Game_Score;
 class Wp_Plugin_Skeleton_Game_Score_Factory implements Wp_Plugin_Skeleton_Entity_Factory_Interface
 {
     use Wp_Plugin_Skeleton_Survey_Serializer;
-
 
     /**
      * Crete new entity.
