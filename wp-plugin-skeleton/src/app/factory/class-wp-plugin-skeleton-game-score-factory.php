@@ -4,15 +4,15 @@
 namespace Wp_Plugin_Skeleton\Factory;
 
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Wp_Plugin_Skeleton\Traits\Wp_Plugin_Skeleton_Survey_Serializer;
+use Wp_Plugin_Skeleton\Traits\Wp_Plugin_Skeleton_Entity_Serializer;
 use Wp_Plugin_Skeleton\Entity\Wp_Plugin_Skeleton_Game_Score;
 
 class Wp_Plugin_Skeleton_Game_Score_Factory implements Wp_Plugin_Skeleton_Entity_Factory_Interface
 {
-    use Wp_Plugin_Skeleton_Survey_Serializer;
+    use Wp_Plugin_Skeleton_Entity_Serializer;
 
-    /** Crete new survey
-     * @param array $data - normalized survey
+    /** Crete new entity
+     * @param array $data - normalized entity
      * @return array|object
      * @throws ExceptionInterface
      */
