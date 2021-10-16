@@ -36,6 +36,13 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     protected $score;
 
     /**
+     * Connect our wo user with third party data.
+     *
+     * @var int
+     */
+    protected $wp_user_id;
+
+    /**
      * Datetime converted to string.
      *
      * @var string $created_at
@@ -78,6 +85,22 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getWpUserId(): ?int
+    {
+        return $this->wp_user_id;
+    }
+
+    /**
+     * @param int $wp_user_id
+     */
+    public function setWpUserId(int $wp_user_id): void
+    {
+        $this->wp_user_id = $wp_user_id;
     }
 
     /**
@@ -160,6 +183,16 @@ class Wp_Plugin_Skeleton_Game_Score implements Wp_Plugin_Skeleton_Entity
 
         $metadata->addPropertyConstraint(
             'id',
+            new Assert\Positive()
+        );
+
+        $metadata->addPropertyConstraint(
+            'wp_user_id',
+            new Assert\NotBlank(['allowNull' => true])
+        );
+
+        $metadata->addPropertyConstraint(
+            'wp_user_id',
             new Assert\Positive()
         );
 

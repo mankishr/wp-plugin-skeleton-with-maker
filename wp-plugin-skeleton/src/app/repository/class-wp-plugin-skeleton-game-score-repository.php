@@ -33,6 +33,7 @@ class Wp_Plugin_Skeleton_Game_Score_Repository extends Wp_Plugin_Skeleton_Abstra
         $charset_collate = $this->db->get_charset_collate();
         $sql = "CREATE TABLE IF NOT EXISTS `{$this->table}` (
               id BIGINT(20)  NOT NULL AUTO_INCREMENT,
+              wp_user_id BIGINT(20) NULL,
               uuid VARCHAR(190) NOT NULL UNIQUE,
               game_name VARCHAR(190) NOT NULL,
               score DECIMAL(10,2) NOT NULL,

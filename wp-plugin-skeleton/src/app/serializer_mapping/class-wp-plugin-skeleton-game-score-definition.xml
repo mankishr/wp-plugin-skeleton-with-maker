@@ -10,6 +10,10 @@
             <group>all</group>
         </attribute>
 
+        <attribute name="wp_user_id">
+            <group>all</group>
+        </attribute>
+
         <attribute name="uuid">
             <group>all</group>
         </attribute>

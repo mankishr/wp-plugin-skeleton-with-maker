@@ -13,6 +13,7 @@
 namespace Wp_Plugin_Skeleton\Includes;
 
 use Wp_Plugin_Skeleton\Admin\Wp_Plugin_Skeleton_Admin_Menu_Page;
+use Wp_Plugin_Skeleton\Command\Wp_Plugin_Skeleton_Database_Update;
 use Wp_Plugin_Skeleton\Command\Wp_Plugin_Skeleton_Import_Scores_Command;
 use Wp_Plugin_Skeleton\Infrastructure\Wp_Plugin_Skeleton_Service_Container;
 use Wp_Plugin_Skeleton\Service\Wp_Plugin_Skeleton_Cron_Service;
@@ -117,7 +118,10 @@ class Wp_Plugin_Skeleton_Service
         $current_version = get_option( WP_PLUGIN_SKELETON_VERSION_KEY ) ?? '0.0.0';
         if(version_compare($current_version, '3.0.0', '<')){
             $this->install_custom_db_table();
+        }else{
+            Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_database_update()->execute();
         }
+
         if( Wp_Plugin_Skeleton_Cron_Service::WP_PLUGIN_SKELETON_MIGRATE_CRON === true && version_compare($current_version, $this->version, '<') ){
             $this->migrate_cron_jobs();
         }

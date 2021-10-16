@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Validator\RecursiveValidator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Wp_Plugin_Skeleton\Admin\Wp_Plugin_Skeleton_Admin_Menu_Page;
 use Wp_Plugin_Skeleton\Admin\Settings\Wp_Plugin_Skeleton_Settings_Service;
+use Wp_Plugin_Skeleton\Command\Wp_Plugin_Skeleton_Database_Update;
 use Wp_Plugin_Skeleton\Factory\Wp_Plugin_Skeleton_Game_Score_Factory;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Activator;
 use Wp_Plugin_Skeleton\Includes\Wp_Plugin_Skeleton_Deactivator;
@@ -105,6 +106,11 @@ final class Wp_Plugin_Skeleton_Service_Container
      * @var ValidatorInterface|RecursiveValidator
      */
     private $wp_plugin_skeleton_validator;
+
+    /**
+     * @var Wp_Plugin_Skeleton_Database_Update
+     */
+    private  $wp_plugin_skeleton_database_update;
 
     protected function __construct()
     {
@@ -305,5 +311,19 @@ final class Wp_Plugin_Skeleton_Service_Container
             $this->wp_plugin_skeleton_scores_service = new Wp_Plugin_Skeleton_Game_Scores_Service($this->wp_plugin_skeleton_game_score_repository(), $this->wp_plugin_skeleton_game_score_factory(), $this->wp_plugin_skeleton_validator());
         }
         return $this->wp_plugin_skeleton_scores_service;
+    }
+
+    /**
+     * @return Wp_Plugin_Skeleton_Database_Update
+     *
+     * @since    6.0.0
+     */
+    public function wp_plugin_skeleton_database_update(): Wp_Plugin_Skeleton_Database_Update
+    {
+        if (null === $this->wp_plugin_skeleton_database_update) {
+            global $wpdb;
+            $this->wp_plugin_skeleton_database_update = new Wp_Plugin_Skeleton_Database_Update($wpdb);
+        }
+        return $this->wp_plugin_skeleton_database_update;
     }
 }

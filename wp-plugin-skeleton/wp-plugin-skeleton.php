@@ -7,13 +7,13 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @since             2.0.0
+ * @since             6.0.0
  * @package           Wp_Plugin_Skeleton
  *
  * @wordpress-plugin
  * Plugin Name:       Wp Plugin Skeleton
  * Description:       Wp Plugin Skeleton
- * Version:           2.0.0
+ * Version:           6.0.0
  * Author:            Anka Bajurin Stiskalov
  * Text Domain:       wp-plugin-skeleton
  * Domain Path:       /languages
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WP_PLUGIN_SKELETON_VERSION', '2.0.0' );
+define( 'WP_PLUGIN_SKELETON_VERSION', '6.0.0' );
 define( 'WP_PLUGIN_SKELETON_PLUGIN_ID', 'wp_plugin_skeleton' );
 define( 'WP_PLUGIN_SKELETON_VERSION_KEY', 'wp_plugin_skeleton_version' );
 define( 'WP_PLUGIN_SKELETON_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
