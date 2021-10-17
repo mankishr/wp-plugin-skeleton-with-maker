@@ -63,5 +63,4 @@ register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );
  *
  * @since    1.0.0
  */
-$plugin = Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_service();
-$plugin->run();
+Wp_Plugin_Skeleton_Service_Container::get_instance()->wp_plugin_skeleton_service()->run();
